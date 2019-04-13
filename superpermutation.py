@@ -32,8 +32,7 @@ def createPermutations(n):
 def searchForNumInIterations(cutNum, l):
     for i in range(len(l)):
         item = l[i]
-        if item.startswith(cutNum):
-            # del l[i]
+        if cutNum in item:
             return (item, i)
     return ('-1', '-1')
 
