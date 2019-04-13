@@ -1,8 +1,9 @@
 import numpy as np
 from itertools import permutations
+import ahocorasick
+from permutationsGenerator import generatePermutations
 
-N = 7
-
+N = 8
 
 class node():
 
@@ -37,7 +38,7 @@ def searchForNumInIterations(cutNum, l):
     return ('-1', '-1')
 
 
-def calc(l=[]):
+def calc(l):
     finalString = ''
     lastNum = l[0]
     finalString = lastNum
@@ -59,19 +60,37 @@ def calc(l=[]):
                 lastNum = ans[0]
                 del l[ans[1]]
                 break
-    print(finalString)
+    # print(finalString)
     print(len(finalString))
-    print('leek')
+    return finalString
 
 
 def removeList(a, b):
     return list(set(a)-set(b))
 
-
+def verifyAnswer(l, answer):
+    # A = ahocorasick.Automaton()
+    # answer = '2123'
+    # A.add_word(answer, True)
+    # for a in l:
+    #     if A.match(str(a)) != True:
+    #         print(a)
+    #         return 'Failure'
+    # return "Pass"
+    for a in l:
+        if a not in answer:
+            return 'Failure'
+        return 'Pass'
+    
 def main():
     root1 = node()
-    permutationList = createPermutations(N)
-    calc(permutationList)
+    # permutationList = createPermutations(N)
+    permutationList = generatePermutations(list(range(N)))
+    print('Permutations generated!')
+    finalString = calc(permutationList + [])
+    print('Answer calculated!')
+    print(verifyAnswer(permutationList, finalString))
+
 
 
 if __name__ == "__main__":
