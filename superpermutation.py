@@ -1,9 +1,9 @@
 import numpy as np
 from itertools import permutations
-import ahocorasick
 from permutationsGenerator import generatePermutations
+import math
 
-N = 8
+N = 9
 
 class node():
 
@@ -19,15 +19,27 @@ class node():
 def createPermutations(n):
     l = list(permutations(range(1, n+1)))
     ans = []
-    tempSum = ''
+    tempSum = ""
     for a in l:
         for i in a:
             tempSum += str(i)
         ans.append(tempSum)
-        tempSum = ''
-    # print(ans)
+        tempSum = ""
     return ans
 
+def find(L, target, cutDigits):
+    start = 0
+    end = len(L) - 1
+    while start <= end:
+        middle = (start + end)// 2
+        midpoint = L[middle][:cutDigits-2]
+        if midpoint > target:
+            end = middle - 1
+        elif midpoint < target:
+            start = middle + 1
+        else:
+            return [L[middle], middle]
+    return ['-1', '-1']
 
 def searchForNumInIterations(cutNum, l):
     for i in range(len(l)):
@@ -50,7 +62,11 @@ def calc(l):
             cut_lastNum = lastNum[j+1:]
             # print('cut number: ' + str(cut_lastNum))
             # We look for a number that starts with 123, 23, 3 etc..
-            ans = searchForNumInIterations(cut_lastNum, l)
+
+            # ans = searchForNumInIterations(cut_lastNum, l)
+            # ans = binarySearch(cut_lastNum, l)
+            ans = find(l, cut_lastNum, len(lastNum) - j+1)
+            
             # print(ans)
             # If there is a suitable number found, the result is not -1
             if ans[0] != '-1':
@@ -59,8 +75,6 @@ def calc(l):
                 lastNum = ans[0]
                 del l[ans[1]]
                 break
-    # print(finalString)
-    print(len(finalString))
     return finalString
 
 
@@ -76,6 +90,7 @@ def verifyAnswer(l, answer):
     #         print(a)
     #         return 'Failure'
     # return "Pass"
+    # print('Verifying: ' + answer)
     for a in l:
         if a not in answer:
             return 'Failure'
@@ -83,11 +98,12 @@ def verifyAnswer(l, answer):
     
 def main():
     root1 = node()
-    # permutationList = createPermutations(N)
-    permutationList = generatePermutations(list(range(N)))
+    permutationList = createPermutations(N)
+    # permutationList = generatePermutations(list(range(N)))
     print('Permutations generated!')
     finalString = calc(permutationList + [])
     print('Answer calculated!')
+    print('The final string length is: ' + str(len(finalString)))
     print(verifyAnswer(permutationList, finalString))
 
 
