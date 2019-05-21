@@ -5,6 +5,7 @@ import math
 
 N = 9
 
+
 class node():
 
     def __init__(self, value=-1):
@@ -27,11 +28,12 @@ def createPermutations(n):
         tempSum = ""
     return ans
 
+
 def find(L, target, cutDigits):
     start = 0
     end = len(L) - 1
     while start <= end:
-        middle = (start + end)// 2
+        middle = (start + end) // 2
         midpoint = L[middle][:cutDigits-2]
         if midpoint > target:
             end = middle - 1
@@ -40,6 +42,7 @@ def find(L, target, cutDigits):
         else:
             return [L[middle], middle]
     return ['-1', '-1']
+
 
 def searchForNumInIterations(cutNum, l):
     for i in range(len(l)):
@@ -66,7 +69,7 @@ def calc(l):
             # ans = searchForNumInIterations(cut_lastNum, l)
             # ans = binarySearch(cut_lastNum, l)
             ans = find(l, cut_lastNum, len(lastNum) - j+1)
-            
+
             # print(ans)
             # If there is a suitable number found, the result is not -1
             if ans[0] != '-1':
@@ -80,6 +83,7 @@ def calc(l):
 
 def removeList(a, b):
     return list(set(a)-set(b))
+
 
 def verifyAnswer(l, answer):
     # A = ahocorasick.Automaton()
@@ -95,7 +99,8 @@ def verifyAnswer(l, answer):
         if a not in answer:
             return 'Failure'
         return 'Pass'
-    
+
+
 def main():
     root1 = node()
     permutationList = createPermutations(N)
@@ -105,7 +110,6 @@ def main():
     print('Answer calculated!')
     print('The final string length is: ' + str(len(finalString)))
     print(verifyAnswer(permutationList, finalString))
-
 
 
 if __name__ == "__main__":
