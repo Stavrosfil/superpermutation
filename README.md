@@ -1,2 +1,2 @@
 # superpermutation
-This is a python program that calculates a superpermutation for a given number of characters
+This is a python script that calculates a superpermutation for a given number of characters

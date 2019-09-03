@@ -1,10 +1,8 @@
 import numpy as np
 from itertools import permutations
-from permutationsGenerator import generatePermutations
 import math
 
-N = 9
-
+N = 5
 
 class node():
 
@@ -19,6 +17,7 @@ class node():
 
 def createPermutations(n):
     l = list(permutations(range(1, n+1)))
+    print('Permutations list generated...')
     ans = []
     tempSum = ""
     for a in l:
@@ -97,19 +96,20 @@ def verifyAnswer(l, answer):
     # print('Verifying: ' + answer)
     for a in l:
         if a not in answer:
-            return 'Failure'
-        return 'Pass'
+            return 'Generated string is incorrect!'
+        return 'Generated string is verified!'
 
 
 def main():
-    root1 = node()
+    # root1 = node()
+    print('Generating permutation...')
     permutationList = createPermutations(N)
-    # permutationList = generatePermutations(list(range(N)))
     print('Permutations generated!')
     finalString = calc(permutationList + [])
     print('Answer calculated!')
-    print('The final string length is: ' + str(len(finalString)))
-    print(verifyAnswer(permutationList, finalString))
+    print(finalString)
+    print('String length is: ' + str(len(finalString)))
+    # print(verifyAnswer(permutationList, finalString))
 
 
 if __name__ == "__main__":
